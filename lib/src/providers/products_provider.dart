@@ -42,4 +42,6 @@ class ProductsProvider with ChangeNotifier {
   ];
 
   List<Product> get products => [..._products];
+  Product productById(String id) =>
+      products.firstWhere((element) => element.id == id);
 }

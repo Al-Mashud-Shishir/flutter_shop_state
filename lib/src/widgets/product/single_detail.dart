@@ -17,8 +17,7 @@ class _SingleProductDetailViewState extends State<SingleProductDetailView> {
   @override
   Widget build(BuildContext context) {
     final productsRef = Provider.of<ProductsProvider>(context);
-    final singleProduct =
-        productsRef.products.firstWhere((element) => element.id == widget.id);
+    final singleProduct = productsRef.productById(widget.id);
     return Scaffold(
       appBar: AppBar(
         title: Text(singleProduct.title),

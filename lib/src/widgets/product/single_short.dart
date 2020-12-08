@@ -11,8 +11,7 @@ class SingleProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productsRef = Provider.of<ProductsProvider>(context);
-    final singleProduct =
-        productsRef.products.firstWhere((element) => element.id == this.id);
+    final singleProduct = productsRef.productById(id);
 
     return Card(
       elevation: 7,

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_app/src/models/product.dart';
-import 'package:flutter_shop_app/src/providers/products_provider.dart';
+import 'package:flutter_shop_app/src/providers/product.dart';
 import 'package:provider/provider.dart';
 
 class SingleProductDetailView extends StatefulWidget {
-  final String id;
-
-  SingleProductDetailView({this.id});
-
   @override
   _SingleProductDetailViewState createState() =>
       _SingleProductDetailViewState();
@@ -16,16 +11,19 @@ class SingleProductDetailView extends StatefulWidget {
 class _SingleProductDetailViewState extends State<SingleProductDetailView> {
   @override
   Widget build(BuildContext context) {
-    final productsRef = Provider.of<ProductsProvider>(context);
-    final singleProduct = productsRef.productById(widget.id);
+    final product = Provider.of<Product>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text(singleProduct.title),
+        title: Text(product.title),
       ),
       body: Center(
-        child: Text(singleProduct.description),
+        child: Column(
+          children: [
+            Text(product.description),
+            Text(product.isFavourite.toString())
+          ],
+        ),
       ),
     );
-    ;
   }
 }

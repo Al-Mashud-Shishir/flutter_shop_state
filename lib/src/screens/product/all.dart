@@ -1,5 +1,8 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_app/src/providers/cart.dart';
 import 'package:flutter_shop_app/src/providers/products.dart';
+import 'package:flutter_shop_app/src/screens/cart.dart';
 import 'package:flutter_shop_app/src/widgets/product/all.dart';
 import 'package:provider/provider.dart';
 
@@ -15,10 +18,30 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final quantity = Provider.of<Cart>(context).totalQuantityCart;
     return Scaffold(
       appBar: AppBar(
         title: Text("Products Overview"),
         actions: [
+          quantity == 0
+              ? IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CartScreen(),
+                  )),
+                )
+              : Badge(
+                  badgeColor: Theme.of(context).backgroundColor,
+                  position: BadgePosition.topEnd(top: -1, end: -2),
+                  badgeContent: Text(quantity.toString()),
+                  child: IconButton(
+                    icon: Icon(Icons.shopping_cart),
+                    onPressed: () =>
+                        Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CartScreen(),
+                    )),
+                  ),
+                ),
           PopupMenuButton(
             onSelected: (FilterValues value) {
               setState(() {
